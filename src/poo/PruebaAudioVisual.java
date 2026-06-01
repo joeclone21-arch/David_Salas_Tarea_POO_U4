@@ -1,16 +1,17 @@
 package poo;
 
 import uni1a.*;
+import uni4a.controlador.ContenidoControlador;
 import uni4a.servicio.ArchivoServicio;
-import uni4a.servicio.IContenidoServicio; // se importa la interfaz
+import uni4a.servicio.IContenidoServicio;
+import uni4a.vista.ContenidoVista;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PruebaAudioVisual {
     public static void main(String[] args) {
-        System.out.println("--- Ejecutando Etapa 3:Principios SOLID ---");
-        
+        // Inicializa los datos  del Modelo
         List<ContenidoAudiovisual> listaOriginal = new ArrayList<>();
         
         Pelicula pelicula = new Pelicula("Inception", 148, "Ciencia Ficcion", "Warner Bros");
@@ -27,20 +28,14 @@ public class PruebaAudioVisual {
         listaOriginal.add(new VideoYouTube("Tutorial Java POO", 15, "Educacion", "Programacion Express", 15000));
         listaOriginal.add(new Cortometraje("Piper", 6, "Animacion", "Pixar Animation Studios"));
         
-        // CREO LA INSTANCIA APUNTANDO A LA INTERFAZ (Inversion de dependencias)
+        // instancia los componentes de las capas MVC
+        ContenidoVista vista = new ContenidoVista();
         IContenidoServicio servicioArchivo = new ArchivoServicio();
         
-        // Pruebo la escritura usando el objeto 'servicioArchivo'
-        System.out.println("\n[Guardando datos en CSV...]");
-        servicioArchivo.guardarContenidos(listaOriginal);
+        // El Controlador toma el control total del flujo del sistema
+        ContenidoControlador controlador = new ContenidoControlador(listaOriginal, vista, servicioArchivo);
         
-        // Pruebo la lectura usando el objeto 'servicioArchivo'
-        System.out.println("\n[Cargando datos desde CSV...]");
-        List<ContenidoAudiovisual> listaCargada = servicioArchivo.cargarContenidos();
-        
-        System.out.println("\n--- Mostrando Detalles Recuperados del Archivo ---");
-        for (ContenidoAudiovisual contenido : listaCargada) {
-            contenido.mostrarDetalles();
-        }
+        // Aparece el menu interactivo
+        controlador.iniciarSistema();
     }
 }
