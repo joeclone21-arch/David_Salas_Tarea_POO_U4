@@ -1,15 +1,16 @@
 package poo;
+
 import uni1a.*;
 import uni4a.servicio.ArchivoServicio;
+import uni4a.servicio.IContenidoServicio; // se importa la interfaz
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PruebaAudioVisual {
     public static void main(String[] args) {
-        System.out.println("--- Ejecutando Etapa 1: Manejo de Archivos ---");
+        System.out.println("--- Ejecutando Etapa 3:Principios SOLID ---");
         
-        // 1. Se crea la lista y se llena con datos duros iniciales
         List<ContenidoAudiovisual> listaOriginal = new ArrayList<>();
         
         Pelicula pelicula = new Pelicula("Inception", 148, "Ciencia Ficcion", "Warner Bros");
@@ -26,15 +27,17 @@ public class PruebaAudioVisual {
         listaOriginal.add(new VideoYouTube("Tutorial Java POO", 15, "Educacion", "Programacion Express", 15000));
         listaOriginal.add(new Cortometraje("Piper", 6, "Animacion", "Pixar Animation Studios"));
         
-        // 2. Se prueba la escritura: Guarda el estado actual del sistema en el archivo CSV
+        // CREO LA INSTANCIA APUNTANDO A LA INTERFAZ (Inversion de dependencias)
+        IContenidoServicio servicioArchivo = new ArchivoServicio();
+        
+        // Pruebo la escritura usando el objeto 'servicioArchivo'
         System.out.println("\n[Guardando datos en CSV...]");
-        ArchivoServicio.guardarContenidos(listaOriginal);
+        servicioArchivo.guardarContenidos(listaOriginal);
         
-        // 3. Se prueba la  lectura: Inicializa una nueva lista cargando los datos desde el archivo CSV
+        // Pruebo la lectura usando el objeto 'servicioArchivo'
         System.out.println("\n[Cargando datos desde CSV...]");
-        List<ContenidoAudiovisual> listaCargada = ArchivoServicio.cargarContenidos();
+        List<ContenidoAudiovisual> listaCargada = servicioArchivo.cargarContenidos();
         
-        // 4. Se muestra los detalles de los objetos recuperados para comprobar que esta bien
         System.out.println("\n--- Mostrando Detalles Recuperados del Archivo ---");
         for (ContenidoAudiovisual contenido : listaCargada) {
             contenido.mostrarDetalles();

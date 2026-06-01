@@ -4,9 +4,10 @@
 package uni1a;
 import java.util.ArrayList; // para la lista
 import java.util.List;      // para la lista
+import uni4a.servicio.ISerializableCsv;
 
 // Subclase Pelicula que extiende de ContenidoAudiovisual
-public class Pelicula extends ContenidoAudiovisual {
+	public class Pelicula extends ContenidoAudiovisual implements ISerializableCsv {
     private String estudio;
     private List<Actor> actores; // relacion de agregacion
     public Pelicula(String titulo, int duracionEnMinutos, String genero, String estudio) {
@@ -30,6 +31,11 @@ public class Pelicula extends ContenidoAudiovisual {
     }
     
     @Override
+    public String toCsvRow() {
+        return "PELICULA," + getId() + "," + getTitulo() + "," + getDuracionEnMinutos() + "," + getGenero() + "," + getEstudio() + ",N/A";
+    }
+    
+        @Override
     public void mostrarDetalles() {
         System.out.println("Detalles de la película:");
         System.out.println("ID: " + getId());

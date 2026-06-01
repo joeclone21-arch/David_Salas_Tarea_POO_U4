@@ -2,9 +2,10 @@
  * Class Documental
  */
 package uni1a;
+import uni4a.servicio.ISerializableCsv;
 
 // Subclase Documental que extiende de ContenidoAudiovisual
-public class Documental extends ContenidoAudiovisual {
+public class Documental extends ContenidoAudiovisual implements ISerializableCsv{
     private String tema;
     private Investigador investigador; // relacion de asociacion
     
@@ -30,6 +31,11 @@ public class Documental extends ContenidoAudiovisual {
         this.investigador = investigador;
     }
     //
+    @Override
+    public String toCsvRow() {
+        String nombreInv = (getInvestigador() != null) ? getInvestigador().getNombre() : "No asignado";
+        return "DOCUMENTAL," + getId() + "," + getTitulo() + "," + getDuracionEnMinutos() + "," + getGenero() + "," + getTema() + "," + nombreInv;
+    }
     @Override
     public void mostrarDetalles() {
         System.out.println("Detalles de la película:");

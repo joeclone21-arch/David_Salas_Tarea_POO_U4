@@ -1,6 +1,7 @@
 package uni1a;
+import uni4a.servicio.ISerializableCsv;
 
-public class VideoYouTube extends ContenidoAudiovisual {
+public class VideoYouTube extends ContenidoAudiovisual implements ISerializableCsv {
     private String canal;
     private int vistas;
 
@@ -12,6 +13,10 @@ public class VideoYouTube extends ContenidoAudiovisual {
     public String getCanal() { return canal; }
     public int getVistas() { return vistas; }
 
+    @Override
+    public String toCsvRow() {
+        return "YOUTUBE," + getId() + "," + getTitulo() + "," + getDuracionEnMinutos() + "," + getGenero() + "," + getCanal() + "," + getVistas();
+    }	
     @Override
     public void mostrarDetalles() {
         System.out.println("Detalles de Video de YouTube:");

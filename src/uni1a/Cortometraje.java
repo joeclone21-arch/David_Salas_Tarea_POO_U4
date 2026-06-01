@@ -1,6 +1,7 @@
 package uni1a;
+import uni4a.servicio.ISerializableCsv;
 
-public class Cortometraje extends ContenidoAudiovisual {
+public class Cortometraje extends ContenidoAudiovisual implements ISerializableCsv{
     private String festival;
 
     public Cortometraje(String titulo, int duracionEnMinutos, String genero, String festival) {
@@ -9,6 +10,10 @@ public class Cortometraje extends ContenidoAudiovisual {
     }
     public String getFestival() { return festival; }
 
+    @Override
+    public String toCsvRow() {
+        return "CORTOMETRAJE," + getId() + "," + getTitulo() + "," + getDuracionEnMinutos() + "," + getGenero() + "," + getFestival() + ",N/A";
+    }
     @Override
     public void mostrarDetalles() {
         System.out.println("Detalles del Cortometraje:");

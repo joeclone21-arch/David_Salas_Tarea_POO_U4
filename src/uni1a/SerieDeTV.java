@@ -4,9 +4,10 @@
 package uni1a;
 import java.util.ArrayList;
 import java.util.List;
+import uni4a.servicio.ISerializableCsv;
 
 // Subclase SerieDeTV que extiende de ContenidoAudiovisual
-public class SerieDeTV extends ContenidoAudiovisual {
+public class SerieDeTV extends ContenidoAudiovisual implements uni4a.servicio.ISerializableCsv{
     private int temporadas;
     private List<Temporada> listaTemporadas; // relacion de composicion
 
@@ -29,6 +30,10 @@ public class SerieDeTV extends ContenidoAudiovisual {
         this.temporadas = temporadas;
     }
     
+    @Override
+    public String toCsvRow() {
+        return "SERIEDETV," + getId() + "," + getTitulo() + "," + getDuracionEnMinutos() + "," + getGenero() + "," + getTemporadas() + ",N/A";
+    }
     @Override
     public void mostrarDetalles() {
         System.out.println("Detalles de la película:");
