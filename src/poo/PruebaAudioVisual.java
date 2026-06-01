@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PruebaAudioVisual {
     public static void main(String[] args) {
-        // Inicializa los datos  del Modelo
+        // inicializa los datos  del Modelo
         List<ContenidoAudiovisual> listaOriginal = new ArrayList<>();
         
         Pelicula pelicula = new Pelicula("Inception", 148, "Ciencia Ficcion", "Warner Bros");
